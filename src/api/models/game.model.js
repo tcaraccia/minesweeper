@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const httpStatus = require('http-status');
 
 
 /**
