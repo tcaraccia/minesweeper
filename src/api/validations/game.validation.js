@@ -9,4 +9,11 @@ module.exports = {
       mines: Joi.number(),
     },
   },
+  // POST /v1/game/:gameId/update
+  update: {
+    body: {
+      action: Joi.string(),
+      payload: Joi.object(),
+    },
+  },
 };

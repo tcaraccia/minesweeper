@@ -1,10 +1,10 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/game.controller');
-const { authorize, LOGGED_USER } = require('../../middlewares/auth');
+const { authorize } = require('../../middlewares/auth');
 const {
   create,
-  reveal,
+  update,
 } = require('../../validations/game.validation');
 
 const router = express.Router();
@@ -30,46 +30,27 @@ router
    *
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    */
-  .post(authorize(LOGGED_USER), validate(create), controller.create);
+  .post(authorize(), validate(create), controller.create);
 
-router
-  .route('/:gameId/reveal')
-/**
-   * @api {post} v1/games/:gameId/reveal Reveal a Cell
-   * @apiDescription Reveals a Cell
-   * @apiVersion 1.0.0
-   * @apiName RevealCell
-   * @apiGroup Game
-   * @apiPermission user
-   *
-   * @apiHeader {String} Authorization  User's access token
-   *
-   * @apiParam  {Number{1-100}}      row        Row index of the cell to reveal
-   * @apiParam  {Number{1-100}}      col        Col index of the cell to reveal
-   *
-   * @apiSuccess {Object} result Object with the result of the revealed cell.
-   *
-   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
-   */
-  .post(authorize(LOGGED_USER), validate(reveal), controller.reveal);
+
 router
   .route('/:gameId')
 /**
-   * @api {post} v1/games/:gameId Reveal a Cell
-   * @apiDescription Reveals a Cell
+   * @api {put} v1/games/:gameId Perform Game Action
+   * @apiDescription Performs a game action
    * @apiVersion 1.0.0
-   * @apiName RevealCell
+   * @apiName action
    * @apiGroup Game
    * @apiPermission user
    *
    * @apiHeader {String} Authorization  User's access token
    *
-   * @apiParam  {Number{1-100}}      row        Row index of the cell to reveal
-   * @apiParam  {Number{1-100}}      col        Col index of the cell to reveal
+   * @apiParam  {String}      action        An action to perform in the game:'REVEAL,FLAG,PAUSE,MARK'
+   * @apiParam  {Object}      payload       Payload Object containing row, col and flagStyle props when required.
    *
-   * @apiSuccess {Object} result Object with the result of the revealed cell.
-   *
+   * @apiSuccess {Object} result Object with the result of the game's state.
+
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    */
-  .put(authorize(LOGGED_USER), validate(reveal), controller.reveal);
+  .put(authorize(), validate(update), controller.update);
 module.exports = router;
