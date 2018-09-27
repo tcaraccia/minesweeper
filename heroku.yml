@@ -1,0 +1,11 @@
+setup:
+  addons:
+    - plan: 'mongolab:sandbox'
+      as: MONGODB
+  config:
+    NODE_ENV: production
+build:
+  languages:
+    - nodejs
+run:
+  web: yarn start
