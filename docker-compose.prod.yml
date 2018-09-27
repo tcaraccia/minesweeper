@@ -1,6 +1,6 @@
 version: "2"
 services:
-  boilerplate-api:
+  minesweeper:
     command: yarn start
   environment:
     - NODE_ENV=production

@@ -55,7 +55,7 @@ router
 router
   .route('/:gameId')
 /**
-   * @api {post} v1/games/:gameId/reveal Reveal a Cell
+   * @api {post} v1/games/:gameId Reveal a Cell
    * @apiDescription Reveals a Cell
    * @apiVersion 1.0.0
    * @apiName RevealCell

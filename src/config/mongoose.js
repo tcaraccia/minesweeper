@@ -22,7 +22,7 @@ if (env === 'development') {
 * @public
 */
 exports.connect = () => {
-  mongoose.connect(mongo.uri, {
+  mongoose.connect(process.env.MONGODB_URI || mongo.uri, {
     keepAlive: 1,
   });
   return mongoose.connection;
